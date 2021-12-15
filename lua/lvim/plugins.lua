@@ -223,6 +223,7 @@ local core_plugins = {
     branch = "dev",
     -- event = "BufWinEnter",
     -- event = "BufRead",
+    module = "dap-install",
     disable = not lvim.builtin.dap.active,
   },
 
