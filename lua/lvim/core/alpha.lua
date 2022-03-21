@@ -3,6 +3,12 @@ local M = {}
 function M.config()
   local lvim_dashboard = require "lvim.core.alpha.dashboard"
   local lvim_startify = require "lvim.core.alpha.startify"
+
+  -- local startify = require "alpha.themes.startify"
+  -- startify.mru_opts.ignore = function(path, ext)
+  --   local default_mru_ignore = { "gitcommit" }
+  --   return (string.find(path, ".git/")) or (vim.tbl_contains(default_mru_ignore, ext))
+  -- end
   lvim.builtin.alpha = {
     dashboard = { config = {}, section = lvim_dashboard.get_sections() },
     startify = { config = {}, section = lvim_startify.get_sections() },
@@ -40,6 +46,13 @@ local function resolve_config(theme_name)
       elseif v then
         resolved_section[name][k] = v
       end
+    end
+  end
+
+  if theme_name == "startify" then
+    selected_theme.mru_opts.ignore = function(path, ext)
+      local default_mru_ignore = { "gitcommit" }
+      return (string.find(path, ".git/")) or (vim.tbl_contains(default_mru_ignore, ext))
     end
   end
 
