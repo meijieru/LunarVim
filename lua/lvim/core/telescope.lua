@@ -114,7 +114,7 @@ function M.config()
         },
       },
       pickers = pickers,
-      file_ignore_patterns = {},
+      file_ignore_patterns = { ".git/" },
       path_display = { "smart" },
       winblend = 0,
       border = {},
