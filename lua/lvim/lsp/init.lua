@@ -50,6 +50,16 @@ function M.common_capabilities()
     capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   end
 
+  if myvim ~= nil and myvim.plugins.ufo.active then
+    -- For nvim-ufo
+    capabilities.textDocument.foldingRange = {
+      dynamicRegistration = false,
+      lineFoldingOnly = true,
+    }
+  else
+    Log:debug "nvim-ufo disabled, skip foldingRange"
+  end
+
   return capabilities
 end
 
