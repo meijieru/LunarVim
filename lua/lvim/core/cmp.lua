@@ -324,6 +324,14 @@ M.config = function()
       ["<C-e>"] = cmp_mapping.abort(),
       ["<CR>"] = cmp_mapping(function(fallback)
         if cmp.visible() then
+          local entry = cmp.get_selected_entry()
+          if entry and entry.source.name == "copilot" then
+            return cmp.mapping.confirm {
+              select = false,
+              behavior = cmp.ConfirmBehavior.Replace,
+            }(fallback)
+          end
+
           local confirm_opts = vim.deepcopy(lvim.builtin.cmp.confirm_opts) -- avoid mutating the original opts below
           local is_insert_mode = function()
             return vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
